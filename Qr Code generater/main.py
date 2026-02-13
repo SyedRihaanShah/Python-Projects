@@ -7,6 +7,13 @@ import os
 def code_generate():
     url_var = url.get()
     qr = qrcode.make(str(url_var))
+    loc = filedialog.askdirectory()
+    os.chdir(loc)
+    save_as = name_to_save.get()
+    done_label = Label(root, text='Done', bg='red')
+    done_label.pack()
+    qr.save(f"{save_as}.png")
+
     
 
 
@@ -14,22 +21,24 @@ def code_generate():
 root = Tk()
 root.geometry("400x350")
 root.title("URL to QR code generater")
-image = PhotoImage(file='qr.png')
-root.iconphoto(True,image)
+# image = PhotoImage(file= 'qr.png')
+# root.iconphoto(True,image)
 
 url = StringVar()
 name_to_save = StringVar()
 
-label1 = Label(root,text='Save As').place(x=60,y=15)
-dataEntry = Entry(textvariable=name_to_save)
+Save_As_Label = Label(root,text='Save As').pack()
+
+dataEntry = Entry(root, textvariable=name_to_save, bg='Grey')
 dataEntry.config(width=30)
-dataEntry.place(x = 60, y = 35)
 
-label1 = Label(root, text="Inside QR Code ").place(x = 60, y = 55)
+dataEntry.pack()
 
-dataEntry = Entry(textvariable=url, width=30)
-dataEntry.place(x = 60, y = 75)
+Inside_QR_Code = Label(root, text="Inside QR Code ").pack()
 
-button = Button(root,text='Get Code', command=code_generate, width= 30, height=5, bg='grey')
-button.place(x = 80, y = 105)
+dataEntry = Entry(textvariable=url, width=30, bg='Grey')
+dataEntry.pack()
+
+button = Button(root,text='Get Code', command=code_generate, width= 12, height=3, bg='grey')
+button.pack()
 root.mainloop()
