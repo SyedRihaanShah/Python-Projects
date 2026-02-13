@@ -14,9 +14,6 @@ def code_generate():
     done_label.pack()
     qr.save(f"{save_as}.png")
 
-    
-
-
 
 root = Tk()
 root.geometry("400x350")
