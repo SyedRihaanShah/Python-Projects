@@ -8,11 +8,13 @@ def Currency_Converter():
     current_currecny = user_currency.get()
     amount_user = amount.get()
     user_second = second_currecny.get()
-    converted_amount = c.convert(current_currecny, user_second, Decimal(amount_user))
+    converted_amount = c.convert(current_currecny.upper(), user_second.upper(), Decimal(amount_user))
     Converted_label = Label(root, text=f'{amount_user} {current_currecny} in {user_second} is {converted_amount}', font=('Dante', 20))
     Converted_label.place(x = 350, y = 250 )
 
 root = Tk()
+
+root.title("CURRENCY CONVERTER")
 
 user_currency = StringVar()
 amount = IntVar()
