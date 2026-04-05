@@ -1,5 +1,4 @@
 import cv2 as cv
-import numpy as np
 
 #Intiliased video capture of webcam 
 cap = cv.VideoCapture(0)
