@@ -1,4 +1,5 @@
 import cv2 as cv
+import time
 
 #Intiliased video capture of webcam 
 cap = cv.VideoCapture(0)
@@ -10,7 +11,7 @@ haar_cascade = cv.CascadeClassifier('project_live_face_recoginstion.py/haar_face
 if not cap.isOpened():
     print('Cant open your camera')
 
-
+prev_time = 0
 while True:
     #using read we get our webcams current frame 
     ret,frame  = cap.read()
@@ -27,10 +28,16 @@ while True:
     #drawing a rectangle around ROI
     for (x,y,w,h) in face_detect:
         cv.rectangle(frame, (x,y), (x + w, y+h), (0,255,0), thickness=5)
+    
+    #fps calculation
+    current_time = time.time()
+    fps = 1/(current_time -prev_time) if prev_time != 0 else 0
+    prev_time = current_time
+    fps = int(fps)
 
     #putting the text of number of faces 
     cv.putText(frame, f'Total Faces:{len(face_detect)}', (40,40), cv.FONT_HERSHEY_DUPLEX, fontScale=2.0, color=(0,0,139), thickness=5)
-    
+    cv.putText(frame, f'FPS = {fps}', (80,80), cv.FONT_HERSHEY_SIMPLEX, fontScale=2.0,color=(0,0,139), thickness=5)
     #displaying the image 
     cv.imshow('detect', frame)
 
